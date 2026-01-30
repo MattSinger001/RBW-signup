@@ -20,14 +20,14 @@ input_str = input_str.replace('\n','')
 
 st.title('RBW Raid Signups (Based on order/class)')
 
-json_input = st.text_input('Copy/paste the signup JSON here')
+json_input = st.text_area('Copy/paste the signup JSON here')
 
 if json_input == '':
     json_input = input_str
 else:
     json_input = json_input.replace('\n','')
     
-data = json.loads(input_str)
+data = json.loads(json_input)
 
 
 signups = data['signUps']
@@ -65,7 +65,7 @@ def color_specName(val):
     elif val == 'Holy1' or val == 'Protection1' or val == 'Retribution':
         color = '#F48CBA'
     else:
-        color = '#A330C9'
+        color = '#C41E3A'
     
     return f'background-color: {color}; color:black'
 
@@ -106,6 +106,7 @@ st.dataframe(temp_data.style.applymap(color_specName, subset=['specName']),use_c
 st.markdown('# Absence')
 temp_data = chosen_data[chosen_data['className']== 'Absence']
 temp_data = temp_data[['name','specName','position']]
+temp_data['specName'] = 'Not Avaliable'
 st.dataframe(temp_data.style.applymap(color_specName, subset=['specName']),use_container_width=True,height=(len(temp_data) + 1) * 35 + 3)
 
 
